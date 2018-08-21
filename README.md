@@ -1,9 +1,4 @@
 [![pipeline status](https://gitlab.com/cutecom/cutecom/badges/master/pipeline.svg)](https://gitlab.com/cutecom/cutecom/commits/master)
-[![Build status](https://api.travis-ci.org/cyc1ingsir/cutecom.svg?branch=master)](https://travis-ci.org/cyc1ingsir/cutecom)
-
-*Important* CuteCom development is moving over to GitLab. Starting from the next release CuteCom will be available at
-[GitLab](https://gitlab.com/cutecom/cutecom/)
-Please refer to [#58](https://github.com/neundorf/CuteCom/issues/58) for the details.
 
 ## Welcome to _CuteCom_
 

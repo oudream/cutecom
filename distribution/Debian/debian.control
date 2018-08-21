@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Roman I Khimov <roman@khimov.ru>
 Build-Depends: debhelper (>= 4), cmake (>= 2.8.11), qt5-default, libqt5serialport5-dev
 Standards-Version: 3.9.1
-Homepage: http://github.com/neundorf/CuteCom
+Homepage: https://gitlab.com/cutecom/cutecom
 
 Package: cutecom
 Architecture: any

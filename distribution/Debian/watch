@@ -2,4 +2,4 @@
 version=3
 
 opts=filenamemangle=s/.+\/v?(\d\S*)\.tgz/cutecom-$1\.tgz/ \
-  https://github.com/neundorf/CuteCom/tags .*/v?(\d\S*)\.tgz
+  https://gitlab.com/cutecom/cutecom/tags .*/v?(\d\S*)\.tgz

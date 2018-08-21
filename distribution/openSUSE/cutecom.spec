@@ -18,9 +18,9 @@
 
 
 Name:           cutecom
-Version:        0.50.0
+Version:        0.51.0
 Release:        0
-Url:            http://github.com/neundorf/CuteCom
+Url:            https://gitlab.com/cutecom/cutecom 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
