@@ -115,6 +115,10 @@ void Settings::settingChanged(Settings::Options option, QVariant setting)
     case TcpLocalPort:
         session.tcpLocalPort = setting.toUInt();
         break;
+    case AutoReconnect:
+        session.autoReconnect = setting.toBool();
+        emit autoConnectChanged(session.autoReconnect);
+        break;
     case CurrentSession:
         m_current_session = setting.toString();
         emit sessionChanged(getCurrentSession());
@@ -197,6 +201,7 @@ void Settings::readSessionSettings(QSettings &settings)
         session.udpRemoteHost = settings.value("UdpRemoteHost", "").toString();
         session.udpRemotePort = settings.value("UdpRemotePort", 7756).toUInt();
         session.tcpLocalPort = settings.value("TcpLocalPort", 7755).toUInt();
+        session.autoReconnect = settings.value("autoReconnect", false).toBool();
 
         m_sessions.insert(name, session);
     }
@@ -329,6 +334,7 @@ void Settings::saveSessionSettings()
             settings.setValue("UdpRemoteHost", session.udpRemoteHost);
             settings.setValue("UdpRemotePort", session.udpRemotePort);
             settings.setValue("TcpLocalPort", session.tcpLocalPort);
+            settings.setValue("autoReconnect", session.autoReconnect);
         }
         settings.endArray();
     }

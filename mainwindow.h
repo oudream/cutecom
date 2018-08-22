@@ -41,7 +41,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
 {
     Q_OBJECT
 
-    enum DeviceState { DEVICE_CLOSED, DEVICE_OPENING, DEVICE_OPEN, DEVICE_CLOSING };
+    enum DeviceState { DEVICE_CLOSED, DEVICE_OPENING, DEVICE_OPEN, DEVICE_CLOSING, DEVICE_RECONNECT };
 
 public:
     explicit MainWindow(QWidget *parent = 0, const QString &session = "");
@@ -59,6 +59,7 @@ private:
     void showAboutMsg();
     void setHexOutputFormat(bool checked);
     void saveCommandHistory();
+    void disableInput();
 
 private slots:
     /**
@@ -130,6 +131,8 @@ private:
      * @brief m_cmdBufIndex
      */
     int m_cmdBufIndex;
+
+    QTimer m_reconnectTimer;
 };
 
 #endif // MAINWINDOW_H

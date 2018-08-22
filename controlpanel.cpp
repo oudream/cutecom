@@ -54,11 +54,14 @@ ControlPanel::ControlPanel(QWidget *parent, Settings *settings)
     fillOpenModeCombo();
     m_check_lineBreak->setChecked(session.showCtrlCharacters);
     m_check_timestamp->setChecked(session.showTimestamp);
+    m_check_reconnect->setChecked(session.autoReconnect);
 
     connect(m_check_lineBreak, &QCheckBox::toggled,
             [=](bool checked) { emit settingChanged(Settings::ShowCtrlCharacters, checked); });
     connect(m_check_timestamp, &QCheckBox::toggled,
             [=](bool checked) { emit settingChanged(Settings::ShowTimestamp, checked); });
+    connect(m_check_reconnect, &QCheckBox::toggled,
+            [=](bool checked) { emit settingChanged(Settings::AutoReconnect, checked); });
     connect(this, &ControlPanel::settingChanged, settings, &Settings::settingChanged);
 
     applySessionSettings(session);
@@ -260,6 +263,7 @@ void ControlPanel::applySessionSettings(Settings::Session session)
 
     m_check_lineBreak->setChecked(session.showCtrlCharacters);
     m_check_timestamp->setChecked(session.showTimestamp);
+    m_check_reconnect->setChecked(session.autoReconnect);
 }
 
 void ControlPanel::fillDeviceCombo(const QString &deviceName)
