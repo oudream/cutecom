@@ -25,11 +25,11 @@
 
 #include "controlpanel.h"
 #include "ctrlcharacterspopup.h"
+#include "pluginmanager.h"
 #include "sessionmanager.h"
 #include "settings.h"
 #include "statusbar.h"
 #include "ui_mainwindow.h"
-#include "pluginmanager.h"
 
 #include <QFont>
 #include <QMainWindow>

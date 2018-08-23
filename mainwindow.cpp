@@ -206,10 +206,10 @@ MainWindow::MainWindow(QWidget *parent, const QString &session)
     connect(&m_reconnectTimer, &QTimer::timeout, this, &MainWindow::openDevice);
 
     m_reconnectTimer.setSingleShot(false);
-    m_reconnectTimer.setInterval(1000); //1s reconnection period is usually enough
-    //stop the timer and restore the state if autoConnect was disabled
-    connect(m_settings, &Settings::autoConnectChanged, [=](bool autoConnect){
-        if ( !autoConnect && m_deviceState == DEVICE_RECONNECT ){
+    m_reconnectTimer.setInterval(1000); // 1s reconnection period is usually enough
+    // stop the timer and restore the state if autoConnect was disabled
+    connect(m_settings, &Settings::autoConnectChanged, [=](bool autoConnect) {
+        if (!autoConnect && m_deviceState == DEVICE_RECONNECT) {
             m_reconnectTimer.stop();
             m_deviceState = DEVICE_CLOSING;
             controlPanel->closeDevice();
@@ -443,10 +443,10 @@ void MainWindow::handleError(QSerialPort::SerialPortError error)
     if (error == QSerialPort::NoError) {
         return;
     } else if (m_deviceState == DEVICE_OPEN || m_deviceState == DEVICE_OPENING || m_deviceState == DEVICE_RECONNECT) {
-        if ( m_settings->getCurrentSession().autoReconnect ){
+        if (m_settings->getCurrentSession().autoReconnect) {
             m_deviceState = DEVICE_RECONNECT;
             disableInput();
-            if ( m_device->isOpen() ){ //close the device if it was opened but
+            if (m_device->isOpen()) { // close the device if it was opened but
                 m_device->close();
             }
             m_reconnectTimer.start();

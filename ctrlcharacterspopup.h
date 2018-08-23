@@ -42,7 +42,7 @@ namespace popup_widget
  * select given button by clicking on it or by pressing right shortcut (Ctrl + key) - not all buttons have  * assigned
  * shortcuts (these will have object: QKeySequence{Qt::NoButton}). After user clicked or used shortcut, then control
  * character in printable version (UTF-8 with offset 0x2400) is pasted into QLineEdit at current cursor position.
-*/
+ */
 class CtrlCharactersPopup : public QWidget
 {
     Q_OBJECT
