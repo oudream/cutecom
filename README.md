@@ -47,11 +47,13 @@ On Linux you will hopefully find ready made packages using the package manager o
 To build your own copy, you need to run `cmake .` followd by make.
 You'll then find a cutecom binary in the same folder.
 `make package` should provide you with a generic RPM package (which lacks the documentation and the like).
-`make dist` creates a tar ball (so does `make package_source`)
+`make dist` creates a tar ball (so does `make package_source`).  
+The latter are especially usefule for crafting [a new release](./Releasing.md).  
+CuteCom is using [GitLabCI](./CI.md).
 
 #### Requirements for Building:
 
-*   CuteCom 0.30.0 +: Qt >= 5.2, CMake >= 2.8.11
+*   CuteCom 0.30.0 +: Qt >= 5.3, CMake >= 2.8.11
 *   on linux look for the qt5 development packages including QSerialport
 *   Since C++C11 features are used a gcc supporting these is needed too
 
