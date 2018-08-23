@@ -308,6 +308,13 @@
      </widget>
     </item>
     <item>
+     <widget class="QCheckBox" name="m_check_reconnect">
+      <property name="text">
+       <string>Auto Reconnect</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <spacer name="horizontalSpacer">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
