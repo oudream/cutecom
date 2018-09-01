@@ -1,5 +1,12 @@
 -------------------------------------------------------------------
-Mon Aug 06 15:48:14 UTC 2018 - cyc1ingsir@gmail.com 
+Sat Sep 01 13:37:14 UTC 2018 - cyc1ingsir@gmail.com
+
+-update to release 0.51.0
+ * moved to a new home
+ * added auto reconnect feature
+
+ -------------------------------------------------------------------
+Mon Aug 06 15:48:14 UTC 2018 - cyc1ingsir@gmail.com
 
 -update to release 0.50.0
  * added the byte counter plugin
@@ -10,7 +17,7 @@ Mon Aug 06 15:48:14 UTC 2018 - cyc1ingsir@gmail.com
  * redesign control panel's opening button
 
 -------------------------------------------------------------------
-Thu Jun 17 19:44:34 UTC 2018 - cyc1ingsir@gmail.com 
+Thu Jun 17 19:44:34 UTC 2018 - cyc1ingsir@gmail.com
 
 -update to release 0.45.0
  * Enable input of Crl characters using a popup or Ctrl+<x>
@@ -20,32 +27,41 @@ Thu Jun 17 19:44:34 UTC 2018 - cyc1ingsir@gmail.com
  * updating travis ci instructions - FIX
  * support for Qt5>=5.11
 
- -------------------------------------------------------------------
-Thu Jan 12 19:04:34 UTC 2017 - cyc1ingsir@gmail.com 
+-------------------------------------------------------------------
+Mon Jun 11 08:25:25 UTC 2018 - opensuse@dstoecker.de
 
--update to release 0.40.0
- * implementation of searching the output
- * Linked line termination of displayed data 
-   with the option (LF, CRLF, CR, ...) for user input.
- * compress/combine multiple non printable characters into one expression
-   in case the same non printable characters is beeing received multiple
-   times in a sequence
- * enable a mix from hex and ascii characters in hex input mode
-
---------------------------------------------------------------------
-Sat Oct 15 20:05:20 UTC 2016 - cyc1ingsir@gmail.com 
-
--update to release 0.30.4
- * Disable RTS/DTR when no flow control is used
- * man page update
- * licenses cleanup
+- fix build with cmake >= 5.11 (68.patch)
 
 -------------------------------------------------------------------
-Mon Feb 15 20:20:20 UTC 2016 - cyc1ingsir@gmail.com 
+Sat Aug 12 21:41:30 UTC 2017 - jengelh@inai.de
 
--update to release 0.30.3
- * make build and run using Qt5 versions less 5.3
- * performance tuning switching to QPlainTextEdit
+- Trim redundant info from description that is already part of the
+  spec preamble.
+
+-------------------------------------------------------------------
+Thu Aug  3 06:48:14 UTC 2017 - opensuse@dstoecker.de
+
+- update to 0.40.0
+ -First implementation of searching the output
+ -Linked line termination of displayed data
+  with the option (LF, CRLF, CR, ...) for user input.
+ -compress/combine multiple non printable characters into one expression
+  in case the same non printable characters is beeing received multiple
+  times in a sequence
+ -enable a mix from hex and ascii characters in hex input mode
+ -Disable RTS/DTR when no flow control is used
+ -man page update
+ -licenses cleanup
+ -now builds and runs using Qt5 versions less than 5.3
+ -performance tuning by switching to QPlainTextEdit
+
+-------------------------------------------------------------------
+Tue Jul  5 18:32:24 UTC 2016 - toddrme2178@gmail.com
+
+- Spec file cleanups:
+  * Use upstream Summary
+  * Use upstream Description
+  * Fix Group tag
 
 -------------------------------------------------------------------
 Thu Jan 14 14:21:11 UTC 2016 - opensuse@dstoecker.de

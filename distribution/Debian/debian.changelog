@@ -1,3 +1,21 @@
+cutecom (0.51.0-0) unstable; urgency=low
+  * moved to a new home
+  * added auto reconnect feature
+  * added the byte counter plugin
+  * added a plugin manager
+  * added macros plugin to support similar to br@y's terminal
+  * added netproxy plugin
+  * improved logfile handling
+  * redesign control panel's opening button
+  * Enable input of Crl characters using a popup or Ctrl+<x>
+  * Windows support added
+  * line termination was not saved in settings - FIX
+  * upgrading to clang-format to version 3.8.0
+  * updating travis ci instructions - FIX
+  * support for Qt5>=5.11
+
+ -- Meinhard Ritscher <cyc1ingsir@gmail.com>  Sat, 01 Sep 2018 14:04:00 +0100
+
 cutecom (0.40.0-0) unstable; urgency=low
   * First implementation of searching the output
   * Linked line termination of displayed data 
@@ -7,7 +25,7 @@ cutecom (0.40.0-0) unstable; urgency=low
     times in a sequence
   * enable a mix from hex and ascii characters in hex input mode
 
- -- Meinhard Ritscher <cyc1ingsir@gmail.com>  Thu, 12 Jan 2017 18:04:00 +0100
+ -- Meinhard Ritscher <cyc1ingsir@gmail.com>  Thu, 12 Jan 2018 18:04:00 +0100
 
 cutecom (0.30.4-0) unstable; urgency=low
   * Disable RTS/DTR when no flow control is used

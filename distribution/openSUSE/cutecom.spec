@@ -1,7 +1,7 @@
 #
 # spec file for package cutecom
 #
-# Copyright (c) 2015 SUSE LINUX GmbH, Nuernberg, Germany.
+# Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,22 +16,26 @@
 #
 
 
-
 Name:           cutecom
 Version:        0.51.0
 Release:        0
-Url:            https://gitlab.com/cutecom/cutecom 
+Url:            https://gitlab.com/cutecom/cutecom
+Summary:        A graphical serial terminal 
+License:        GPL-3.0+
+Group:          System/X11/Terminals
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  libqt5-qtbase-devel libqt5-qtserialport-devel
-Summary:        Serial terminal
-License:        GPL-3.0+
-Group:          Applications/Communications
+BuildRequires:  libqt5-qtbase-devel
+BuildRequires:  libqt5-qtserialport-devel
 Source:         %{name}-%{version}.tgz
 
 %description
-Qt5 based serial terminal
+CuteCom is a graphical serial terminal, similar to minicom. It is
+written using the Qt library.
+
+It is aimed mainly at hardware developers or other people who need a
+terminal to talk to their devices.
 
 %prep
 %setup
@@ -64,4 +68,3 @@ rm -rf "$RPM_BUILD_ROOT"
 %doc Changelog TODO LICENSE CREDITS README.md
 
 %changelog
-
