@@ -38,7 +38,7 @@ DataDisplay::DataDisplay(QWidget *parent)
     , m_dataDisplay(new DataDisplayPrivate(this))
     , m_searchPanel(new SearchPanel(this))
     , m_hexBytes(0)
-    , m_hexLeftOver(0)
+    , m_hexLeftOver(nullptr)
     , m_displayHex(false)
     , m_displayCtrlCharacters(false)
     , m_linebreakChar('\n')
@@ -218,7 +218,7 @@ void DataDisplay::constructDisplayLine(const QByteArray &inData)
     }
 
     for (int i = 0; i < inData.size(); i++) {
-        unsigned int b = inData.at(i);
+        int b = static_cast<int>(inData.at(i));
         // print newline depending on m_linebreakChar
         if ((isprint(b)) || (b == '\n') || (b == '\r') || (b == '\t')) {
 
@@ -240,7 +240,7 @@ void DataDisplay::constructDisplayLine(const QByteArray &inData)
                     line.data += QChar(0x21E5);
                 line.data += '\t';
             } else {
-                line.data += b;
+                line.data += static_cast<char>(b);
             }
 
         } else {
@@ -260,7 +260,7 @@ void DataDisplay::constructDisplayLine(const QByteArray &inData)
                 int nbreaks = 0;
 
                 for (int nbreaks_loop = i; nbreaks_loop < inData.size(); nbreaks_loop++) {
-                    if (inData.at(nbreaks_loop) != (int)b)
+                    if (inData.at(nbreaks_loop) != b)
                         break;
 
                     nbreaks += 1;
@@ -408,9 +408,9 @@ void DataDisplay::setupTextFormats()
  * \param data
  * \param step
  */
-void DataDisplay::insertSpaces(QString &data, unsigned int step)
+void DataDisplay::insertSpaces(QString &data, int step)
 {
-    for (unsigned int i = data.size() - step; i > 0; i -= step) {
+    for (int i = data.size() - step; i > 0; i -= step) {
         data.insert(i, ' ');
         if (i == (8 * step)) {
             data.insert(i, QStringLiteral("  "));
@@ -432,9 +432,9 @@ bool DataDisplay::formatHexData(const QByteArray &inData)
     // 16 bytes will be displayed on each line
     // if less have been displayed on the last round
     // add to the last line and redisplay
-    int overflow = m_hexBytes % 16;
+    unsigned int overflow = m_hexBytes % 16;
     if (overflow) {
-        data = m_hexLeftOver.append(inData);
+        data = m_hexLeftOver->append(inData);
         m_hexBytes -= overflow;
         if (!m_data.isEmpty())
             m_data.removeLast();
@@ -450,35 +450,39 @@ bool DataDisplay::formatHexData(const QByteArray &inData)
     unsigned int junkSize = 0;
     while (pos < data.size()) {
         junk = data.mid(pos, 16);
-        junkSize = junk.size();
-        QString hexJunk = QString(junk.toHex());
-        QString asciiText;
-        for (char c : junk) {
-            unsigned int b = c;
-            if (b < 0x20) {
-                b += 0x2400;
-            } else if (0x7F <= b) {
-                b = '.';
+        if (junk.size() > 0) {
+            junkSize = static_cast<unsigned int>(junk.size());
+            QString hexJunk = QString(junk.toHex());
+            QString asciiText;
+            for (char c : junk) {
+                unsigned int b = static_cast<unsigned int>(c);
+                if (b < 0x20) {
+                    b += 0x2400;
+                } else if (0x7F <= b) {
+                    b = '.';
+                }
+                asciiText += QChar(b);
             }
-            asciiText += QChar(b);
-        }
-        if (junkSize == 16)
-            asciiText.append('\n');
-        insertSpaces(hexJunk, 2);
-        if (asciiText.size() > 8)
-            asciiText.insert(8, QStringLiteral("  "));
+            if (junkSize == 16)
+                asciiText.append('\n');
+            insertSpaces(hexJunk, 2);
+            if (asciiText.size() > 8)
+                asciiText.insert(8, QStringLiteral("  "));
 
-        DisplayLine line;
-        line.data = QString("%1 %2\t").arg(m_hexBytes, 8, 10, QChar('0')).arg(hexJunk, -50);
-        line.trailer = QString(asciiText);
-        if (!redisplay || pos > 0)
-            m_timestamps->append(m_timestamp);
-        m_data.append(line);
-        pos += 16;
-        m_hexBytes += junk.size();
+            DisplayLine line;
+            line.data = QString("%1 %2\t").arg(m_hexBytes, 8, 10, QChar('0')).arg(hexJunk, -50);
+            line.trailer = QString(asciiText);
+            if (!redisplay || pos > 0)
+                m_timestamps->append(m_timestamp);
+            m_data.append(line);
+            pos += 16;
+            m_hexBytes += static_cast<unsigned int>(junk.size());
+        } else {
+            break;
+        }
     }
     if (junkSize < 16) {
-        m_hexLeftOver = junk;
+        m_hexLeftOver = new QByteArray(junk);
         m_previous_ended_with_nl = false;
     } else {
         m_previous_ended_with_nl = true;
@@ -534,8 +538,8 @@ void DataDisplayPrivate::timeViewPaintEvent(QPaintEvent *event)
     painter.setFont(m_format_time->font());
     QTextBlock block = firstVisibleBlock();
     int blockNumber = block.blockNumber();
-    int top = (int)blockBoundingGeometry(block).translated(contentOffset()).top();
-    int bottom = top + (int)blockBoundingRect(block).height();
+    int top = static_cast<int>(blockBoundingGeometry(block).translated(contentOffset()).top());
+    int bottom = top + static_cast<int>(blockBoundingRect(block).height());
 
     while (block.isValid() && top <= event->rect().bottom()) {
         if (block.isVisible() && bottom >= event->rect().top()) {
@@ -548,7 +552,7 @@ void DataDisplayPrivate::timeViewPaintEvent(QPaintEvent *event)
 
         block = block.next();
         top = bottom;
-        bottom = top + (int)blockBoundingRect(block).height();
+        bottom = top + static_cast<int>(blockBoundingRect(block).height());
         ++blockNumber;
     }
 }

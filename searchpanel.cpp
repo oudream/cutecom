@@ -31,7 +31,7 @@ SearchPanel::SearchPanel(QWidget *parent)
         emit closing();
         showPanel(false);
     });
-    connect(btn_next, &QToolButton::clicked, [=]() { emit findNext(le_searchText->text(), 0); });
+    connect(btn_next, &QToolButton::clicked, [=]() { emit findNext(le_searchText->text(), nullptr); });
     connect(btn_prev, &QToolButton::clicked,
             [=]() { emit findNext(le_searchText->text(), QTextDocument::FindBackward); });
     installEventFilter(this);
@@ -72,11 +72,11 @@ void SearchPanel::setPatternFound(bool patternFound)
 bool SearchPanel::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
-        QKeyEvent *ke = (QKeyEvent *)event;
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
 
         if (ke->key() == Qt::Key_F3 && !le_searchText->text().isEmpty()) {
             if (ke->modifiers() == Qt::NoModifier) {
-                emit findNext(le_searchText->text(), 0);
+                emit findNext(le_searchText->text(), nullptr);
             } else if (ke->modifiers() == Qt::ShiftModifier) {
                 emit findNext(le_searchText->text(), QTextDocument::FindBackward);
             }

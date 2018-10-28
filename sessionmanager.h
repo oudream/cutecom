@@ -38,7 +38,7 @@ signals:
     void sessionCloned(const QString &source, const QString &destination);
 
 public:
-    explicit SessionManager(Settings *settings, QWidget *parent = 0);
+    explicit SessionManager(Settings *settings, QWidget *parent = nullptr);
     void editingFinished(const QString &newSessionName);
 
 private:

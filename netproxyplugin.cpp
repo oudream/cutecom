@@ -110,7 +110,7 @@ NetProxyPlugin::~NetProxyPlugin()
  * @brief Return a pointer to the plugin data
  * @return
  */
-const Plugin *NetProxyPlugin::plugin() { return m_plugin; }
+Plugin *NetProxyPlugin::plugin() { return m_plugin; }
 
 /**
  * @brief [SLOT] Send unload command to the plugin manager

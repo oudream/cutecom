@@ -32,7 +32,7 @@ class MacroSettings : public QDialog, private Ui::MacroSettings
 
 public:
     enum { NUM_OF_BUTTONS = 16 };
-    explicit MacroSettings(QPushButton **mainButtons, QWidget *parent = 0);
+    explicit MacroSettings(QPushButton **mainButtons, QWidget *parent = nullptr);
     virtual ~MacroSettings();
     void showPanel(bool setVisible);
     QString getMacroFilename(void) { return m_macroFilename; }

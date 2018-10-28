@@ -29,7 +29,7 @@
         qDebug()
 
 static bool debug = false;
-static CounterPlugin *m_counter = NULL;
+static CounterPlugin *m_counter = nullptr;
 static int processCmd(const QString *text, QString *new_text);
 
 CounterPlugin::CounterPlugin(QFrame *parent, Settings *settings)
@@ -39,7 +39,7 @@ CounterPlugin::CounterPlugin(QFrame *parent, Settings *settings)
 {
     ui->setupUi(this);
     /* Plugin by default disabled, no injection, has QFrame, no injection process cmd */
-    m_plugin = new Plugin(this, "Byte Counter", this, (Plugin::processCmd_fp)&processCmd);
+    m_plugin = new Plugin(this, "Byte Counter", this, static_cast<Plugin::processCmd_fp>(&processCmd));
     /* reset values */
     ui->m_lbl_rx_value->setText("0");
     ui->m_lbl_tx_value->setText("0");
@@ -69,7 +69,7 @@ CounterPlugin::~CounterPlugin()
 {
     delete ui;
     if (m_counter)
-        m_counter = NULL;
+        m_counter = nullptr;
 }
 
 /**
@@ -77,10 +77,11 @@ CounterPlugin::~CounterPlugin()
  *          member funtions from this object
  * @param text The data that are about to be sent
  * @param new_text The new data
- * @return int Always retutn 0 in this case
+ * @return int Always return 0 in this case
  */
 int processCmd(const QString *text, QString *new_text)
 {
+    Q_UNUSED(new_text);
     m_counter->txBytes(text->length());
 
     TRACE << "[CounterPlugin::processCmd] " << text->toLatin1();
@@ -114,7 +115,7 @@ void CounterPlugin::rxBytes(QByteArray data)
  * @brief Return a pointer to the plugin data
  * @return
  */
-const Plugin *CounterPlugin::plugin() { return m_plugin; }
+Plugin *CounterPlugin::plugin() { return m_plugin; }
 
 /**
  * @brief [SLOT] Send unload command to the plugin manager

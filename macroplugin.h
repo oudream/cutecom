@@ -40,7 +40,7 @@ class MacroPlugin : public QFrame
 public:
     explicit MacroPlugin(QFrame *parent, Settings *settings);
     virtual ~MacroPlugin();
-    const Plugin *plugin();
+    Plugin *plugin();
     int processCmd(const QString *text);
 
 signals:

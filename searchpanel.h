@@ -30,7 +30,7 @@ class SearchPanel : public QWidget, private Ui::SearchPanel
     Q_OBJECT
 
 public:
-    explicit SearchPanel(QWidget *parent = 0);
+    explicit SearchPanel(QWidget *parent = nullptr);
     void showPanel(bool setVisible);
     void setPatternFound(bool patternFound);
 

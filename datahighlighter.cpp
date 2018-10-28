@@ -53,6 +53,7 @@ void DataHighlighter::setSearchString(const QString &search)
 
 void DataHighlighter::setCharFormat(QTextCharFormat *format, DataHighlighter::Formats type)
 {
+    Q_UNUSED(format)
     switch (type) {
     case Formats::HEX:
         // m_format_hex = format;

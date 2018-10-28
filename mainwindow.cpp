@@ -138,6 +138,7 @@ MainWindow::MainWindow(QWidget *parent, const QString &session)
     connect(removeSelected, &QAction::triggered, this, &MainWindow::removeSelectedInputItems);
 
     connect(m_command_history, &QListWidget::customContextMenuRequested, [=](const QPoint &pos) {
+        Q_UNUSED(pos)
         // show the 'remove selected' action in the context menu only when row in the list is selected
         if (true == m_command_history->selectionModel()->hasSelection()) {
             removeSelected->setVisible(true);
@@ -268,7 +269,7 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
 {
     if (obj == m_mainSplitter) {
         if (event->type() == QEvent::Resize) {
-            if (((QResizeEvent *)event)->oldSize().width() != m_mainSplitter->width()) {
+            if (static_cast<QResizeEvent *>(event)->oldSize().width() != m_mainSplitter->width()) {
                 // qDebug() << ((QResizeEvent*) event)->oldSize().width() << " : " << m_mainSplitter->width();
                 controlPanel->resize(m_verticalLayout->contentsRect().width(), controlPanel->height());
             }

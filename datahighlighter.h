@@ -31,7 +31,7 @@ class DataHighlighter : public QSyntaxHighlighter
 public:
     enum Formats { HEX };
 
-    DataHighlighter(QTextDocument *parent = 0);
+    DataHighlighter(QTextDocument *parent = nullptr);
     void setSearchString(const QString &search);
     void setCharFormat(QTextCharFormat *format, Formats type);
 

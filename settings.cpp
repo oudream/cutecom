@@ -43,7 +43,7 @@ void Settings::settingChanged(Settings::Options option, QVariant setting)
 
     switch (option) {
     case BaudRate:
-        session.baudRate = setting.toInt();
+        session.baudRate = setting.toUInt();
         break;
     case StopBits:
         session.stopBits = static_cast<QSerialPort::StopBits>(setting.toInt());
@@ -123,6 +123,7 @@ void Settings::settingChanged(Settings::Options option, QVariant setting)
         m_current_session = setting.toString();
         emit sessionChanged(getCurrentSession());
         sessionSettings = false;
+        break;
     default:
         break;
     }
@@ -175,7 +176,7 @@ void Settings::readSessionSettings(QSettings &settings)
          * handled the time this value is appied to the combo boxes within
          * the control panel. It's a workaround though.
          */
-        session.baudRate = settings.value("BaudRate", 115200).toInt();
+        session.baudRate = settings.value("BaudRate", 115200).toUInt();
         session.dataBits = (readUIntSetting(settings, QStringLiteral("DataBits"), &value))
                                ? static_cast<QSerialPort::DataBits>(value)
                                : QSerialPort::Data8;
@@ -216,7 +217,7 @@ bool Settings::readUIntSetting(QSettings &settings, QString const &name, quint32
         *i = 0;
         return false;
     } else {
-        *i = r;
+        *i = static_cast<quint32>(r);
     }
     return true;
 }

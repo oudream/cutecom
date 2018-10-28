@@ -32,10 +32,10 @@ class Plugin : public QObject
 public:
     typedef int (*processCmd_fp)(const QString *text, QString *new_text);
 
-    Plugin(QObject *owner,                 /* who owns the plugin */
-           QString name,                   /* name of plugin */
-           QFrame *frame = NULL,           /* Does the plugin has a UI interface? */
-           processCmd_fp processCmd = NULL /* function that injects the cmd */
+    Plugin(QObject *owner,                    /* who owns the plugin */
+           QString name,                      /* name of plugin */
+           QFrame *frame = nullptr,           /* Does the plugin has a UI interface? */
+           processCmd_fp processCmd = nullptr /* function that injects the cmd */
     );
 
     ~Plugin() {}

@@ -18,7 +18,7 @@ class NetActLed : public QObject
     Q_OBJECT
 public:
     enum { LED_INTERVAL_MS = 250 };
-    NetActLed(NetProxySettings::en_led led_index, QLabel *led_icon, QTimer *tmr = 0)
+    NetActLed(NetProxySettings::en_led led_index, QLabel *led_icon, QTimer *tmr = nullptr)
         : m_index(led_index)
         , m_icon(led_icon)
         , m_tmr(tmr)
@@ -34,9 +34,9 @@ class NetProxyPlugin : public QFrame
     Q_OBJECT
 
 public:
-    explicit NetProxyPlugin(QFrame *parent = 0, Settings *settings = 0);
+    explicit NetProxyPlugin(QFrame *parent = nullptr, Settings *settings = nullptr);
     virtual ~NetProxyPlugin();
-    const Plugin *plugin();
+    Plugin *plugin();
     int processCmd(const QString *text);
 
 signals:

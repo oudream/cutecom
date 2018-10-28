@@ -57,20 +57,20 @@ void PluginManager::addPluginType(en_plugin_type type)
         connect(macro, &MacroPlugin::unload, this, &PluginManager::removePlugin);
         connect(macro, &MacroPlugin::sendCmd, this, &PluginManager::sendCmd);
         /* common plugin initialization */
-        addPlugin((Plugin *)macro->plugin());
+        addPlugin(static_cast<Plugin *>(macro->plugin()));
     } else if (type == en_plugin_type::PLUGIN_TYPE_NET_PROXY) {
         NetProxyPlugin *proxy = new NetProxyPlugin(m_parent, m_settings);
         connect(proxy, &NetProxyPlugin::unload, this, &PluginManager::removePlugin);
         connect(proxy, &NetProxyPlugin::sendCmd, this, &PluginManager::sendCmd);
         connect(this, &PluginManager::recvCmd, proxy, &NetProxyPlugin::proxyCmd);
         /* common plugin initialization */
-        addPlugin((Plugin *)proxy->plugin());
+        addPlugin(static_cast<Plugin *>(proxy->plugin()));
     } else if (type == en_plugin_type::PLUGIN_TYPE_BYTE_COUNTER) {
         CounterPlugin *counter = new CounterPlugin(m_parent, m_settings);
         connect(counter, &CounterPlugin::unload, this, &PluginManager::removePlugin);
         connect(this, &PluginManager::recvCmd, counter, &CounterPlugin::rxBytes);
         /* common plugin initialization */
-        addPlugin((Plugin *)counter->plugin());
+        addPlugin(static_cast<Plugin *>(counter->plugin()));
     }
 }
 
@@ -89,7 +89,7 @@ void PluginManager::removePlugin(Plugin *plugin)
     }
     plugin->deleteLater();
     m_list.removeOne(plugin);
-    plugin = NULL;
+    plugin = nullptr;
 }
 
 /**
@@ -122,7 +122,7 @@ void PluginManager::processCmd(QString *cmd)
     TRACE << "[PluginManager] process: " << *cmd;
     QListIterator<Plugin *> i(m_list);
     while (i.hasNext()) {
-        const Plugin *item = static_cast<const Plugin *>(i.next());
+        Plugin *item = static_cast<Plugin *>(i.next());
         if (item->processCmd) {
             QString new_cmd;
             if (item->processCmd(cmd, &new_cmd)) {

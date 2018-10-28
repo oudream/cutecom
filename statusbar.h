@@ -30,7 +30,7 @@ class StatusBar : public QWidget, private Ui::StatusBar
     Q_OBJECT
 
 public:
-    explicit StatusBar(QWidget *parent = 0);
+    explicit StatusBar(QWidget *parent = nullptr);
     void sessionChanged(const Settings::Session &session);
     void setDeviceInfo(const QSerialPort *port);
     void setToolTip(const QSerialPort *port);

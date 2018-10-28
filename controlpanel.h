@@ -40,7 +40,7 @@ signals:
     void settingChanged(Settings::Options option, QVariant setting);
 
 public:
-    explicit ControlPanel(QWidget *parent = 0, Settings *settings = 0);
+    explicit ControlPanel(QWidget *parent = nullptr, Settings *settings = nullptr);
     ~ControlPanel();
     /**
      * Returns the space in the y-achsis needed
