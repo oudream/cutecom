@@ -834,13 +834,13 @@ void MainWindow::sendFile()
                 m_progress->setValue(i / step);
                 qApp->processEvents();
             }
-            sendByte(data.at(i), charDelay);
+            bool rc = sendByte(data.at(i), charDelay);
             if ((data.at(i) == '\n') || (data.at(i) == '\r')) {
                 // waiting twice as long after bytes whigh might by line ends
                 //(this helps some uCs)
                 millisleep(charDelay);
             }
-            if (0) {
+            if (!rc) {
                 QMessageBox::information(this, tr("Comm error"), tr("Sending failed (%1/%2").arg(i).arg(data.count()));
                 break;
             }
