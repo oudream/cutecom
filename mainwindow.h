@@ -72,7 +72,7 @@ protected:
     void nextCmd();
     void execCmd();
     void commandFromHistoryClicked(QListWidgetItem *item);
-    bool sendString(const QString &s);
+    bool sendString(QString *s);
     bool sendByte(const char c, unsigned long delay);
     void sendKey();
     void sendFile();

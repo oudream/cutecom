@@ -276,7 +276,7 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
         }
         return false;
     } else if (obj == m_input_edit && event->type() == QEvent::KeyPress) {
-        QKeyEvent *ke = (QKeyEvent *)event;
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
         if (ke->modifiers() == Qt::NoModifier) {
             switch (ke->key()) {
             case Qt::Key_Up:
@@ -643,7 +643,7 @@ void MainWindow::execCmd()
     if (!m_device->isOpen()) {
         return;
     }
-    sendString(cmd);
+    sendString(&cmd);
 }
 
 void MainWindow::commandFromHistoryClicked(QListWidgetItem *item)
@@ -663,18 +663,18 @@ void MainWindow::saveCommandHistory()
     m_settings->settingChanged(Settings::CommandHistory, history);
 }
 
-bool MainWindow::sendString(const QString &s)
+bool MainWindow::sendString(QString *s)
 {
     Settings::LineTerminator lineMode = m_combo_lineterm->currentData().value<Settings::LineTerminator>();
     // ToDo
     unsigned int charDelay = m_spinner_chardelay->value();
 
     /* allow plugins to process the output data */
-    m_plugin_manager->processCmd((QString *)&s);
+    m_plugin_manager->processCmd(s);
 
     if (lineMode == Settings::HEX) // hex
     {
-        QString hex = s;
+        QString hex = *s;
         hex.remove(QRegExp("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)")); // spaces except that in quotes
         if ((hex.startsWith("0x")) || (hex.startsWith("0X"))) {
             hex = hex.mid(2);
@@ -736,8 +736,8 @@ bool MainWindow::sendString(const QString &s)
     // QChars
     // of Control Pictures from Unicode block.
     QByteArray bytes;
-    bytes.reserve(s.size());
-    for (auto &c : s) {
+    bytes.reserve(s->size());
+    for (auto &c : *s) {
         bytes.append(static_cast<char>(c.unicode()));
     }
 
@@ -864,7 +864,7 @@ void MainWindow::sendFile()
             if (nextLine.isEmpty())
                 continue;
 
-            if (!sendString(nextLine)) {
+            if (!sendString(&nextLine)) {
                 QMessageBox::information(this, tr("Comm error"), tr("Sending failed"));
                 return;
             }
