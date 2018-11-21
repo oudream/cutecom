@@ -590,7 +590,7 @@ void MainWindow::prevCmd()
 
     m_cmdBufIndex++;
     QListWidgetItem *item = m_command_history->item(m_command_history->count() - m_cmdBufIndex);
-    if (item != 0) {
+    if (item != nullptr) {
         m_command_history->setCurrentItem(item);
         m_input_edit->setText(item->text());
     }
@@ -605,7 +605,7 @@ void MainWindow::nextCmd()
     m_cmdBufIndex--;
     if (m_cmdBufIndex == 0) {
         m_input_edit->clear();
-        m_command_history->setCurrentItem(0);
+        m_command_history->setCurrentItem(nullptr);
     } else {
         QListWidgetItem *it = m_command_history->item(m_command_history->count() - m_cmdBufIndex);
         m_command_history->setCurrentItem(it);
@@ -620,7 +620,7 @@ void MainWindow::execCmd()
     m_input_edit->clear();
     if (!cmd.isEmpty()) {
         bool found = false;
-        QList<QListWidgetItem *> list = m_command_history->findItems(cmd, 0);
+        QList<QListWidgetItem *> list = m_command_history->findItems(cmd, Qt::MatchExactly);
         for (QListWidgetItem *item : list) {
             item = m_command_history->takeItem(m_command_history->row(item));
             delete item;
@@ -648,7 +648,7 @@ void MainWindow::execCmd()
 
 void MainWindow::commandFromHistoryClicked(QListWidgetItem *item)
 {
-    if (item == 0)
+    if (item == nullptr)
         return;
     m_input_edit->setText(item->text());
     m_input_edit->setFocus();
@@ -724,7 +724,7 @@ bool MainWindow::sendString(QString *s)
             if (ascii)
                 byte = nextByte.at(0).unicode() & 0xFF;
             else
-                byte = nextByte.toUInt(0, 16);
+                byte = nextByte.toUInt(nullptr, 16);
 
             sendByte(byte & 0xff, charDelay);
             // fprintf(stderr, " 0x%x d:%d ", byte & 0xff, charDelay);
@@ -1049,7 +1049,7 @@ void MainWindow::processData()
     emit m_plugin_manager->recvCmd(data);
 }
 
-void MainWindow::removeSelectedInputItems(bool checked)
+void MainWindow::removeSelectedInputItems()
 {
     if (true == m_command_history->selectionModel()->hasSelection()) {
         QList<QModelIndex> selectedItems = m_command_history->selectionModel()->selectedIndexes();

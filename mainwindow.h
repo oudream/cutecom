@@ -65,7 +65,7 @@ private slots:
     /**
      * @brief Action to handle QAction::triggered signal. It removes selected items from inputs history list.
      */
-    void removeSelectedInputItems(bool remove);
+    void removeSelectedInputItems();
 
 protected:
     void prevCmd();
