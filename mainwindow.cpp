@@ -550,7 +550,7 @@ void MainWindow::fillLineTerminationChooser(const Settings::LineTerminator setti
 }
 
 /**
- * Fills the ComboBox from which the user can select the protocoll used
+ * Fills the ComboBox from which the user can select the protocol used
  * for sending a file across the device
  * @brief MainWindow::fillProtocolChooser
  * @param setting
@@ -935,7 +935,7 @@ void MainWindow::sendFile()
         m_progress = nullptr;
         openDevice();
     } else {
-        QMessageBox::information(this, tr("Unsupported Protocol"), tr("The selected protocoll is not supported (yet)"));
+        QMessageBox::information(this, tr("Unsupported Protocol"), tr("The selected protocol is not supported (yet)"));
     }
 }
 
