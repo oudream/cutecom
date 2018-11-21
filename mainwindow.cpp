@@ -859,7 +859,7 @@ void MainWindow::sendFile()
         QTextStream stream(&fd);
         while (!stream.atEnd()) {
             QString nextLine = stream.readLine();
-            if(nextLine.contains('#')) {
+            if (nextLine.contains('#')) {
                 nextLine = nextLine.left(nextLine.indexOf("#"));
             }
             if (nextLine.isEmpty())
