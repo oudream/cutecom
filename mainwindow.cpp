@@ -371,7 +371,7 @@ void MainWindow::openDevice()
         m_deviceState = DEVICE_OPEN;
         // printDeviceInfo(); // debugging
 
-        m_device->setBaudRate(session.baudRate);
+        m_device->setBaudRate(static_cast<qint32>(session.baudRate));
         m_device->setDataBits(session.dataBits);
         m_device->setParity(session.parity);
         m_device->setStopBits(session.stopBits);
@@ -667,7 +667,7 @@ bool MainWindow::sendString(QString *s)
 {
     Settings::LineTerminator lineMode = m_combo_lineterm->currentData().value<Settings::LineTerminator>();
     // ToDo
-    unsigned int charDelay = m_spinner_chardelay->value();
+    unsigned int charDelay = static_cast<unsigned int>(m_spinner_chardelay->value());
 
     /* allow plugins to process the output data */
     m_plugin_manager->processCmd(s);
@@ -726,8 +726,7 @@ bool MainWindow::sendString(QString *s)
             else
                 byte = nextByte.toUInt(nullptr, 16);
 
-            sendByte(byte & 0xff, charDelay);
-            // fprintf(stderr, " 0x%x d:%d ", byte & 0xff, charDelay);
+            sendByte(static_cast<char>(byte & 0xff), charDelay);
         }
         return true;
     }
@@ -812,7 +811,7 @@ void MainWindow::sendFile()
         return;
     }
 
-    unsigned long charDelay = static_cast<unsigned long>(m_spinner_chardelay->value());
+    unsigned int charDelay = static_cast<unsigned int>(m_spinner_chardelay->value());
 
     Settings::Protocol protocol = m_combo_protocol->currentData().value<Settings::Protocol>();
     if (protocol == Settings::PLAIN) {
@@ -825,7 +824,7 @@ void MainWindow::sendFile()
         delete m_progress;
         m_progress = new QProgressDialog(tr("Sending file..."), tr("Cancel"), 0, 100, this);
         m_progress->setMinimumDuration(100);
-        unsigned int step = data.size() / 100;
+        int step = data.size() / 100;
         if (step < 1) {
             step = 1;
         }
@@ -860,7 +859,9 @@ void MainWindow::sendFile()
         QTextStream stream(&fd);
         while (!stream.atEnd()) {
             QString nextLine = stream.readLine();
-            nextLine = nextLine.left((unsigned int)nextLine.indexOf("#"));
+            if(nextLine.contains('#')) {
+                nextLine = nextLine.left(nextLine.indexOf("#"));
+            }
             if (nextLine.isEmpty())
                 continue;
 
@@ -918,7 +919,7 @@ void MainWindow::sendFile()
         connect(m_progress, &QProgressDialog::canceled, this, &MainWindow::killSz);
         m_progress->setMinimumDuration(100);
         QFileInfo fi(filename);
-        m_progressStepSize = fi.size() / 1024 / 100;
+        m_progressStepSize = static_cast<int>(fi.size() / 1024 / 100);
         if (m_progressStepSize < 1)
             m_progressStepSize = 1;
 
@@ -996,7 +997,7 @@ void MainWindow::readFromStdErr()
     if (pos > -1) {
         QString captured = regex.cap(1);
         //      cerr<<"captured kb: -"<<captured.latin1()<<"-"<<std::endl;
-        int kb = captured.toUInt();
+        int kb = captured.toInt();
         if ((kb % m_progressStepSize) == 0) {
             int p = kb / m_progressStepSize;
             if (p < 100) {
