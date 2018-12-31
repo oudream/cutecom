@@ -27,6 +27,7 @@
 
 #include "mainwindow.h"
 #include "datadisplay.h"
+#include "datadisplaywidget.h"
 #include "qdebug.h"
 #include "settings.h"
 #include "version.h"
@@ -76,18 +77,18 @@ MainWindow::MainWindow(QWidget *parent, const QString &session)
 
     setupUi(this);
 
+    m_output_display = m_data_display->getDataDisplay();
+
     m_bt_sendfile->setEnabled(false);
     m_command_history->setEnabled(false);
     m_command_history->setSelectionMode(QAbstractItemView::SelectionMode::ExtendedSelection);
 
     m_lb_logfile->setStyleSheet(" QLabel:hover{color: blue;} ");
 
-    connect(m_bt_clear, &QPushButton::clicked, [=]() {
+    connect(m_output_display, &DataDisplay::contentCleared, [=]() {
         if (m_device->isOpen())
             m_input_edit->setFocus();
-        m_output_display->clear();
     });
-    connect(m_check_hex_out, &QCheckBox::toggled, m_output_display, &DataDisplay::setDisplayHex);
 
     // initialize settings stored in the config file
     m_settings = new Settings(this);
@@ -167,7 +168,10 @@ MainWindow::MainWindow(QWidget *parent, const QString &session)
     controlPanel->collapse();
 
     // make sure there is enough room for the controls
-    int minWidth = controlPanel->frameGeometry().width();
+    int minWidthControlPanel = controlPanel->frameGeometry().width();
+    int minWidthDataDisplay = m_data_display->frameGeometry().width();
+    int minWidth = (minWidthControlPanel > minWidthDataDisplay) ? minWidthControlPanel : minWidthDataDisplay;
+    // qDebug() << "set min width to:" << minWidth;
     if (minWidth > m_mainSplitter->minimumWidth())
         m_mainSplitter->setMinimumWidth(minWidth);
 
@@ -184,12 +188,6 @@ MainWindow::MainWindow(QWidget *parent, const QString &session)
     m_device_statusbar->sessionChanged(m_settings->getCurrentSession());
     this->statusBar()->addWidget(m_device_statusbar);
     connect(m_settings, &Settings::sessionChanged, m_device_statusbar, &StatusBar::sessionChanged);
-
-    m_output_display->setDisplayCtrlCharacters(m_settings->getCurrentSession().showCtrlCharacters);
-    m_output_display->setDisplayTime(m_settings->getCurrentSession().showTimestamp);
-    connect(controlPanel->m_check_timestamp, &QCheckBox::toggled, m_output_display, &DataDisplay::setDisplayTime);
-    connect(controlPanel->m_check_lineBreak, &QCheckBox::toggled, m_output_display,
-            &DataDisplay::setDisplayCtrlCharacters);
 
     connect(controlPanel, &ControlPanel::openDeviceClicked, this, &MainWindow::openDevice);
     connect(controlPanel, &ControlPanel::closeDeviceClicked, this, &MainWindow::closeDevice);

@@ -30,6 +30,7 @@ class TimeView;
 class SearchPanel;
 class DataDisplayPrivate;
 class QAction;
+class QVBoxLayout;
 class DataHighlighter;
 
 class DataDisplay : public QWidget
@@ -40,6 +41,9 @@ class DataDisplay : public QWidget
         QString data;
         QString trailer;
     };
+
+signals:
+    void contentCleared();
 
 public:
     explicit DataDisplay(QWidget *parent = nullptr);
@@ -74,6 +78,8 @@ private:
     DataDisplayPrivate *m_dataDisplay;
 
     SearchPanel *m_searchPanel;
+
+    QVBoxLayout *m_verticalLayout;
 
     int m_searchAreaHeight;
 

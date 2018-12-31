@@ -37,6 +37,8 @@
 #include <QPropertyAnimation>
 #include <QtSerialPort/QSerialPort>
 
+class DataDisplay;
+
 class MainWindow : public QMainWindow, public Ui::MainWindow
 {
     Q_OBJECT
@@ -117,6 +119,8 @@ private:
     QCompleter *m_commandCompleter;
     QStringListModel *m_command_history_model;
     QMenu *m_command_history_menu;
+
+    DataDisplay *m_output_display;
 
     /// @brief Popup widget that provides graphical way to enter ASCII control characters into input field.
     popup_widget::CtrlCharactersPopup *m_ctrlCharactersPopup;

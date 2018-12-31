@@ -9,7 +9,9 @@
         <file>images/led-circle-orange-md.png</file>
         <file>images/led-circle-red-md.png</file>
         <file>images/led-circle-yellow-md.png</file>
-        <file>images/hide.svg</file>
-        <file>images/show.svg</file>
+        <file>images/hide_up.svg</file>
+        <file>images/hide_down.svg</file>
+        <file>images/slide_down.svg</file>
+        <file>images/slide_up.svg</file>
     </qresource>
 </RCC>

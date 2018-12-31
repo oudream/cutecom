@@ -32,11 +32,13 @@
 #include <QPainter>
 #include <QScrollBar>
 #include <QTextBlock>
+#include <QVBoxLayout>
 
 DataDisplay::DataDisplay(QWidget *parent)
     : QWidget(parent)
     , m_dataDisplay(new DataDisplayPrivate(this))
     , m_searchPanel(new SearchPanel(this))
+    , m_verticalLayout(new QVBoxLayout(this))
     , m_hexBytes(0)
     , m_hexLeftOver(nullptr)
     , m_displayHex(false)
@@ -49,13 +51,11 @@ DataDisplay::DataDisplay(QWidget *parent)
     m_timestamps = m_dataDisplay->timestamps();
     m_highlighter = new DataHighlighter(m_dataDisplay->document());
 
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    // to remove any margin around the layout
-    layout->setContentsMargins(QMargins());
-    layout->setSpacing(0);
+    m_verticalLayout->setSpacing(0);
+    m_verticalLayout->setContentsMargins(0, 0, 0, 0);
 
-    layout->addWidget(m_dataDisplay);
-    layout->addWidget(m_searchPanel);
+    m_verticalLayout->addWidget(m_dataDisplay);
+    m_verticalLayout->addWidget(m_searchPanel);
     m_searchPanel->hide();
 
     connect(m_searchPanel, &SearchPanel::findNext, this, &DataDisplay::find);
@@ -509,6 +509,9 @@ DataDisplayPrivate::DataDisplayPrivate(DataDisplay *parent)
 {
     m_timestamps = new QVector<QTime>();
     connect(this, &QPlainTextEdit::updateRequest, this, &DataDisplayPrivate::updateTimeView);
+    QPalette backgroundPalette = palette().color(QPalette::Base);
+    backgroundPalette.setColor(QPalette::Base, QColor(255, 255, 250));
+    setPalette(backgroundPalette);
 }
 
 /*!

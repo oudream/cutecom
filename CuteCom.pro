@@ -42,7 +42,9 @@ SOURCES += main.cpp\
     netproxyplugin.cpp \
     netproxysettings.cpp \
     counterplugin.cpp \
-    controlpanel.cpp
+    controlpanel.cpp \
+    datadisplaysettings.cpp \
+    datadisplaywidget.cpp
 
 HEADERS  += mainwindow.h \
     controlpanel.h \
@@ -62,8 +64,9 @@ HEADERS  += mainwindow.h \
     macrosettings.h \
     netproxyplugin.h \
     netproxysettings.h \
-    counterplugin.h
-
+    counterplugin.h \
+    datadisplaysettings.h \
+    datadisplaywidget.h
 
 FORMS    += mainwindow.ui \
     controlpanel.ui \
@@ -74,7 +77,8 @@ FORMS    += mainwindow.ui \
     netproxyplugin.ui \
     macrosettings.ui \
     netproxysettings.ui \
-    counterplugin.ui
+    counterplugin.ui \
+    datadisplaysettings.ui
 
 RESOURCES += \
     resources.qrc

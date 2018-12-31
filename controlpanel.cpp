@@ -39,7 +39,7 @@ ControlPanel::ControlPanel(QWidget *parent, Settings *settings)
     this->setupUi(this);
 
     showIcon = m_panel_settings->tabIcon(0);
-    hideIcon.addFile(QStringLiteral(":/images/hide.svg"));
+    hideIcon.addFile(QStringLiteral(":/images/hide_up.svg"));
 
     m_baudValidator = new QIntValidator(0, 9999999, this);
     m_combo_Baud->setInsertPolicy(QComboBox::NoInsert);
@@ -52,14 +52,8 @@ ControlPanel::ControlPanel(QWidget *parent, Settings *settings)
     fillParityCombo();
     fillFlowCombo();
     fillOpenModeCombo();
-    m_check_lineBreak->setChecked(session.showCtrlCharacters);
-    m_check_timestamp->setChecked(session.showTimestamp);
     m_check_reconnect->setChecked(session.autoReconnect);
 
-    connect(m_check_lineBreak, &QCheckBox::toggled,
-            [=](bool checked) { emit settingChanged(Settings::ShowCtrlCharacters, checked); });
-    connect(m_check_timestamp, &QCheckBox::toggled,
-            [=](bool checked) { emit settingChanged(Settings::ShowTimestamp, checked); });
     connect(m_check_reconnect, &QCheckBox::toggled,
             [=](bool checked) { emit settingChanged(Settings::AutoReconnect, checked); });
     connect(this, &ControlPanel::settingChanged, settings, &Settings::settingChanged);
@@ -261,8 +255,6 @@ void ControlPanel::applySessionSettings(Settings::Session session)
             emit settingChanged(Settings::OpenMode, m_combo_Mode->currentData());
     }
 
-    m_check_lineBreak->setChecked(session.showCtrlCharacters);
-    m_check_timestamp->setChecked(session.showTimestamp);
     m_check_reconnect->setChecked(session.autoReconnect);
 }
 

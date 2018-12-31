@@ -1,0 +1,4 @@
+#ifndef SETTINGSGROUP_H
+#define SETTINGSGROUP_H
+
+#endif // SETTINGSGROUP_H

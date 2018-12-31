@@ -189,13 +189,7 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="DataDisplay" name="m_output_display" native="true">
-          <property name="undoRedoEnabled" stdset="0">
-           <bool>false</bool>
-          </property>
-          <property name="readOnly" stdset="0">
-           <bool>true</bool>
-          </property>
+         <widget class="DataDisplayWidget" name="m_data_display" native="true">
          </widget>
         </item>
         <item>
@@ -206,38 +200,6 @@
           <property name="topMargin">
            <number>2</number>
           </property>
-          <item>
-           <widget class="QPushButton" name="m_bt_clear">
-            <property name="toolTip">
-             <string>Clear the output window</string>
-            </property>
-            <property name="text">
-             <string>C&amp;lear</string>
-            </property>
-            <property name="shortcut">
-             <string>Alt+L</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="m_check_hex_out">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-              <horstretch>1</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="toolTip">
-             <string>Show the output in hexadecimal format</string>
-            </property>
-            <property name="text">
-             <string>He&amp;x output</string>
-            </property>
-            <property name="shortcut">
-             <string>Alt+X</string>
-            </property>
-           </widget>
-          </item>
           <item>
            <widget class="QCheckBox" name="m_check_logging">
             <property name="toolTip">
@@ -291,12 +253,12 @@
      <x>0</x>
      <y>0</y>
      <width>675</width>
-     <height>22</height>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSessions">
     <property name="title">
-     <string>S&amp;essions</string>
+     <string>Sessio&amp;ns</string>
     </property>
     <addaction name="actionOpen"/>
     <addaction name="actionManager"/>
@@ -316,7 +278,7 @@
    </widget>
    <widget class="QMenu" name="menuPlugins">
     <property name="title">
-     <string>&amp;Plugins</string>
+     <string>P&amp;lugins</string>
     </property>
     <addaction name="m_actionAddPluginMacros"/>
     <addaction name="m_actionAddPluginIpProxy"/>
@@ -333,7 +295,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Open</string>
+    <string>&amp;Open</string>
    </property>
   </action>
   <action name="actionSave">
@@ -355,17 +317,17 @@
      <normaloff>:/images/info.svg</normaloff>:/images/info.svg</iconset>
    </property>
    <property name="text">
-    <string>About CuteCom</string>
+    <string>&amp;About CuteCom</string>
    </property>
   </action>
   <action name="actionAbout_Qt">
    <property name="text">
-    <string>About Qt</string>
+    <string>About &amp;Qt</string>
    </property>
   </action>
   <action name="actionFind">
    <property name="text">
-    <string>Find</string>
+    <string>&amp;Find</string>
    </property>
   </action>
   <action name="m_actionPluginMacros">
@@ -381,26 +343,26 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>New macros</string>
+    <string>&amp;New macros</string>
    </property>
   </action>
   <action name="m_actionAddPluginIpProxy">
    <property name="text">
-    <string>New IP Proxy</string>
+    <string>New &amp;IP Proxy</string>
    </property>
   </action>
   <action name="m_actionAddPluginByteCounter">
    <property name="text">
-    <string>New byte counter</string>
+    <string>New &amp;byte counter</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>DataDisplay</class>
+   <class>DataDisplayWidget</class>
    <extends>QWidget</extends>
-   <header>datadisplay.h</header>
+   <header>datadisplaywidget.h</header>
   </customwidget>
  </customwidgets>
  <resources>
