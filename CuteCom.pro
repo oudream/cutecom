@@ -62,7 +62,6 @@ HEADERS  += mainwindow.h \
     macrosettings.h \
     netproxyplugin.h \
     netproxysettings.h \
-    counterplugin.h \
     counterplugin.h
 
 

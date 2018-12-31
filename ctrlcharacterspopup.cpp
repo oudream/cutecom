@@ -81,9 +81,7 @@ struct Frame {
 
         // start printing from bottom right side after rounded corner
         m_borderPath.moveTo(wWidth() - m_FrameSize - m_radius, wHeight() - m_FrameSize);
-        //        m_borderPath.lineTo(m_FrameSize + m_radius, wHeight() - m_FrameSize);
         m_borderPath.moveTo(m_FrameSize /*+ m_radius*/, wHeight() - m_FrameSize);
-        //        printBottomLeftCorner();
 
         // now print the left edge and left top corner
         m_borderPath.lineTo(m_FrameSize, m_FrameSize + m_radius);
@@ -93,9 +91,8 @@ struct Frame {
         m_borderPath.lineTo(wWidth() - m_FrameSize - m_radius, m_FrameSize);
         printTopRightCorner();
 
-        // now print the right edge and bottom right corner
+        // now print the right edge
         m_borderPath.lineTo(wWidth() - m_FrameSize, wHeight() - m_FrameSize /*- m_radius*/);
-        //        printBottomRightCorner();
 
         m_painter.drawPath(m_borderPath);
         m_painter.end();
@@ -119,22 +116,6 @@ private:
     {
         c1 = {currX() + m_radius, currY()};
         c2 = {currX() + m_radius, currY() + m_radius};
-        m_borderPath.cubicTo(c1, c2, c2);
-    }
-
-    // start printing from top side
-    void printBottomRightCorner()
-    {
-        c1 = {currX(), currY() + m_radius};
-        c2 = {currX() - m_radius, currY() + m_radius};
-        m_borderPath.cubicTo(c1, c2, c2);
-    }
-
-    // start printing from right side
-    void printBottomLeftCorner()
-    {
-        c1 = {currX() - m_radius, currY()};
-        c2 = {currX() - m_radius, currY() - m_radius};
         m_borderPath.cubicTo(c1, c2, c2);
     }
 

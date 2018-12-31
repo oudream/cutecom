@@ -53,7 +53,6 @@ public:
      * versions of control characters will be pasted to.
      */
     explicit CtrlCharactersPopup(QLineEdit &parent);
-    virtual ~CtrlCharactersPopup() { ; }
 
     /**
      *  @brief Calling this method starts one shot timer with interval specified in input parameter then
@@ -149,7 +148,6 @@ public:
      * @param parent parent widget.
      */
     explicit CustomQPushButton(QChar c, QWidget *parent = nullptr);
-    virtual ~CustomQPushButton() { ; }
 
 signals:
     /// @brief Emitted when user hovers button of if it has been activated by arrow keys.

@@ -82,7 +82,7 @@ public:
     enum Protocol { PLAIN, SCRIPT, XMODEM, YMODEM, ZMODEM, ONEKXMODEM, PROTOCOL_MAX };
     Q_ENUMS(Protocol)
 
-    explicit Settings(QObject *parent = 0);
+    explicit Settings(QObject *parent = nullptr);
     void readSettings(const QString &session);
 
     const Settings::Session getCurrentSession();

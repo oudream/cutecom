@@ -44,7 +44,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindow
     enum DeviceState { DEVICE_CLOSED, DEVICE_OPENING, DEVICE_OPEN, DEVICE_CLOSING, DEVICE_RECONNECT };
 
 public:
-    explicit MainWindow(QWidget *parent = 0, const QString &session = "");
+    explicit MainWindow(QWidget *parent = nullptr, const QString &session = "");
     ~MainWindow();
 
 protected:
@@ -65,14 +65,14 @@ private slots:
     /**
      * @brief Action to handle QAction::triggered signal. It removes selected items from inputs history list.
      */
-    void removeSelectedInputItems(bool remove);
+    void removeSelectedInputItems();
 
 protected:
     void prevCmd();
     void nextCmd();
     void execCmd();
     void commandFromHistoryClicked(QListWidgetItem *item);
-    bool sendString(const QString &s);
+    bool sendString(QString *s);
     bool sendByte(const char c, unsigned long delay);
     void sendKey();
     void sendFile();

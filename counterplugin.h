@@ -39,7 +39,7 @@ class CounterPlugin : public QFrame
 public:
     explicit CounterPlugin(QFrame *parent, Settings *settings);
     ~CounterPlugin();
-    const Plugin *plugin();
+    Plugin *plugin();
     //    int processCmd(const QString *text, QString *new_text);
 
 signals:

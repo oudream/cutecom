@@ -18,7 +18,7 @@ class NetProxySettings : public QDialog
 
 public:
     enum en_led { LED_UDP_EN, LED_UDP_TX, LED_UDP_RX, LED_TCP_EN, LED_TCP_TX, LED_TCP_RX, NUMBER_OF_LEDS };
-    explicit NetProxySettings(Settings *settings, QWidget *parent = 0);
+    explicit NetProxySettings(Settings *settings, QWidget *parent = nullptr);
     ~NetProxySettings();
 
 signals:

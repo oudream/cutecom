@@ -29,8 +29,10 @@ class DeviceCombo : public QComboBox
     Q_OBJECT
 
 public:
-    DeviceCombo(QWidget *parent = 0)
-        : QComboBox(parent){};
+    DeviceCombo(QWidget *parent = nullptr)
+        : QComboBox(parent)
+    {
+    }
 
     virtual void showPopup() Q_DECL_OVERRIDE;
 

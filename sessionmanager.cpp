@@ -80,7 +80,7 @@ void SessionNameValidator::fixup(QString &input) const
     do {
         int index = input.lastIndexOf("-");
         if (index > -1) {
-            bool ok;
+            bool ok = false;
             if (orderNum < 0)
                 orderNum = input.right(input.length() - 1 - index).toInt(&ok);
             if (ok) {
@@ -114,8 +114,8 @@ QWidget *SessionItemDelegate::createEditor(QWidget *parent, const QStyleOptionVi
 SessionManager::SessionManager(Settings *settings, QWidget *parent)
     : QDialog(parent)
     , m_settings(settings)
-    , m_current_item(0)
-    , m_current_session(0)
+    , m_current_item(nullptr)
+    , m_current_session(nullptr)
     , m_isCloning(false)
     , m_isRenaming(false)
 {

@@ -138,6 +138,7 @@ MainWindow::MainWindow(QWidget *parent, const QString &session)
     connect(removeSelected, &QAction::triggered, this, &MainWindow::removeSelectedInputItems);
 
     connect(m_command_history, &QListWidget::customContextMenuRequested, [=](const QPoint &pos) {
+        Q_UNUSED(pos)
         // show the 'remove selected' action in the context menu only when row in the list is selected
         if (true == m_command_history->selectionModel()->hasSelection()) {
             removeSelected->setVisible(true);
@@ -268,14 +269,14 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *event)
 {
     if (obj == m_mainSplitter) {
         if (event->type() == QEvent::Resize) {
-            if (((QResizeEvent *)event)->oldSize().width() != m_mainSplitter->width()) {
+            if (static_cast<QResizeEvent *>(event)->oldSize().width() != m_mainSplitter->width()) {
                 // qDebug() << ((QResizeEvent*) event)->oldSize().width() << " : " << m_mainSplitter->width();
                 controlPanel->resize(m_verticalLayout->contentsRect().width(), controlPanel->height());
             }
         }
         return false;
     } else if (obj == m_input_edit && event->type() == QEvent::KeyPress) {
-        QKeyEvent *ke = (QKeyEvent *)event;
+        QKeyEvent *ke = static_cast<QKeyEvent *>(event);
         if (ke->modifiers() == Qt::NoModifier) {
             switch (ke->key()) {
             case Qt::Key_Up:
@@ -370,7 +371,7 @@ void MainWindow::openDevice()
         m_deviceState = DEVICE_OPEN;
         // printDeviceInfo(); // debugging
 
-        m_device->setBaudRate(session.baudRate);
+        m_device->setBaudRate(static_cast<qint32>(session.baudRate));
         m_device->setDataBits(session.dataBits);
         m_device->setParity(session.parity);
         m_device->setStopBits(session.stopBits);
@@ -549,7 +550,7 @@ void MainWindow::fillLineTerminationChooser(const Settings::LineTerminator setti
 }
 
 /**
- * Fills the ComboBox from which the user can select the protocoll used
+ * Fills the ComboBox from which the user can select the protocol used
  * for sending a file across the device
  * @brief MainWindow::fillProtocolChooser
  * @param setting
@@ -589,7 +590,7 @@ void MainWindow::prevCmd()
 
     m_cmdBufIndex++;
     QListWidgetItem *item = m_command_history->item(m_command_history->count() - m_cmdBufIndex);
-    if (item != 0) {
+    if (item != nullptr) {
         m_command_history->setCurrentItem(item);
         m_input_edit->setText(item->text());
     }
@@ -604,7 +605,7 @@ void MainWindow::nextCmd()
     m_cmdBufIndex--;
     if (m_cmdBufIndex == 0) {
         m_input_edit->clear();
-        m_command_history->setCurrentItem(0);
+        m_command_history->setCurrentItem(nullptr);
     } else {
         QListWidgetItem *it = m_command_history->item(m_command_history->count() - m_cmdBufIndex);
         m_command_history->setCurrentItem(it);
@@ -619,7 +620,7 @@ void MainWindow::execCmd()
     m_input_edit->clear();
     if (!cmd.isEmpty()) {
         bool found = false;
-        QList<QListWidgetItem *> list = m_command_history->findItems(cmd, 0);
+        QList<QListWidgetItem *> list = m_command_history->findItems(cmd, Qt::MatchExactly);
         for (QListWidgetItem *item : list) {
             item = m_command_history->takeItem(m_command_history->row(item));
             delete item;
@@ -642,12 +643,12 @@ void MainWindow::execCmd()
     if (!m_device->isOpen()) {
         return;
     }
-    sendString(cmd);
+    sendString(&cmd);
 }
 
 void MainWindow::commandFromHistoryClicked(QListWidgetItem *item)
 {
-    if (item == 0)
+    if (item == nullptr)
         return;
     m_input_edit->setText(item->text());
     m_input_edit->setFocus();
@@ -662,18 +663,18 @@ void MainWindow::saveCommandHistory()
     m_settings->settingChanged(Settings::CommandHistory, history);
 }
 
-bool MainWindow::sendString(const QString &s)
+bool MainWindow::sendString(QString *s)
 {
     Settings::LineTerminator lineMode = m_combo_lineterm->currentData().value<Settings::LineTerminator>();
     // ToDo
-    unsigned int charDelay = m_spinner_chardelay->value();
+    unsigned int charDelay = static_cast<unsigned int>(m_spinner_chardelay->value());
 
     /* allow plugins to process the output data */
-    m_plugin_manager->processCmd((QString *)&s);
+    m_plugin_manager->processCmd(s);
 
     if (lineMode == Settings::HEX) // hex
     {
-        QString hex = s;
+        QString hex = *s;
         hex.remove(QRegExp("\\s+(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)")); // spaces except that in quotes
         if ((hex.startsWith("0x")) || (hex.startsWith("0X"))) {
             hex = hex.mid(2);
@@ -723,10 +724,9 @@ bool MainWindow::sendString(const QString &s)
             if (ascii)
                 byte = nextByte.at(0).unicode() & 0xFF;
             else
-                byte = nextByte.toUInt(0, 16);
+                byte = nextByte.toUInt(nullptr, 16);
 
-            sendByte(byte & 0xff, charDelay);
-            // fprintf(stderr, " 0x%x d:%d ", byte & 0xff, charDelay);
+            sendByte(static_cast<char>(byte & 0xff), charDelay);
         }
         return true;
     }
@@ -735,8 +735,8 @@ bool MainWindow::sendString(const QString &s)
     // QChars
     // of Control Pictures from Unicode block.
     QByteArray bytes;
-    bytes.reserve(s.size());
-    for (auto &c : s) {
+    bytes.reserve(s->size());
+    for (auto &c : *s) {
         bytes.append(static_cast<char>(c.unicode()));
     }
 
@@ -811,7 +811,7 @@ void MainWindow::sendFile()
         return;
     }
 
-    unsigned long charDelay = static_cast<unsigned long>(m_spinner_chardelay->value());
+    unsigned int charDelay = static_cast<unsigned int>(m_spinner_chardelay->value());
 
     Settings::Protocol protocol = m_combo_protocol->currentData().value<Settings::Protocol>();
     if (protocol == Settings::PLAIN) {
@@ -824,7 +824,7 @@ void MainWindow::sendFile()
         delete m_progress;
         m_progress = new QProgressDialog(tr("Sending file..."), tr("Cancel"), 0, 100, this);
         m_progress->setMinimumDuration(100);
-        unsigned int step = data.size() / 100;
+        int step = data.size() / 100;
         if (step < 1) {
             step = 1;
         }
@@ -833,13 +833,13 @@ void MainWindow::sendFile()
                 m_progress->setValue(i / step);
                 qApp->processEvents();
             }
-            sendByte(data.at(i), charDelay);
+            bool rc = sendByte(data.at(i), charDelay);
             if ((data.at(i) == '\n') || (data.at(i) == '\r')) {
                 // waiting twice as long after bytes whigh might by line ends
                 //(this helps some uCs)
                 millisleep(charDelay);
             }
-            if (0) {
+            if (!rc) {
                 QMessageBox::information(this, tr("Comm error"), tr("Sending failed (%1/%2").arg(i).arg(data.count()));
                 break;
             }
@@ -859,11 +859,13 @@ void MainWindow::sendFile()
         QTextStream stream(&fd);
         while (!stream.atEnd()) {
             QString nextLine = stream.readLine();
-            nextLine = nextLine.left((unsigned int)nextLine.indexOf("#"));
+            if (nextLine.contains('#')) {
+                nextLine = nextLine.left(nextLine.indexOf("#"));
+            }
             if (nextLine.isEmpty())
                 continue;
 
-            if (!sendString(nextLine)) {
+            if (!sendString(&nextLine)) {
                 QMessageBox::information(this, tr("Comm error"), tr("Sending failed"));
                 return;
             }
@@ -917,7 +919,7 @@ void MainWindow::sendFile()
         connect(m_progress, &QProgressDialog::canceled, this, &MainWindow::killSz);
         m_progress->setMinimumDuration(100);
         QFileInfo fi(filename);
-        m_progressStepSize = fi.size() / 1024 / 100;
+        m_progressStepSize = static_cast<int>(fi.size() / 1024 / 100);
         if (m_progressStepSize < 1)
             m_progressStepSize = 1;
 
@@ -933,7 +935,7 @@ void MainWindow::sendFile()
         m_progress = nullptr;
         openDevice();
     } else {
-        QMessageBox::information(this, tr("Unsupported Protocol"), tr("The selected protocoll is not supported (yet)"));
+        QMessageBox::information(this, tr("Unsupported Protocol"), tr("The selected protocol is not supported (yet)"));
     }
 }
 
@@ -995,7 +997,7 @@ void MainWindow::readFromStdErr()
     if (pos > -1) {
         QString captured = regex.cap(1);
         //      cerr<<"captured kb: -"<<captured.latin1()<<"-"<<std::endl;
-        int kb = captured.toUInt();
+        int kb = captured.toInt();
         if ((kb % m_progressStepSize) == 0) {
             int p = kb / m_progressStepSize;
             if (p < 100) {
@@ -1048,7 +1050,7 @@ void MainWindow::processData()
     emit m_plugin_manager->recvCmd(data);
 }
 
-void MainWindow::removeSelectedInputItems(bool checked)
+void MainWindow::removeSelectedInputItems()
 {
     if (true == m_command_history->selectionModel()->hasSelection()) {
         QList<QModelIndex> selectedItems = m_command_history->selectionModel()->selectedIndexes();

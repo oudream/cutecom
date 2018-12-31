@@ -42,7 +42,7 @@ class DataDisplay : public QWidget
     };
 
 public:
-    explicit DataDisplay(QWidget *parent = 0);
+    explicit DataDisplay(QWidget *parent = nullptr);
 
     void clear();
 
@@ -66,7 +66,7 @@ public:
 
 private:
     void find(const QString &, QTextDocument::FindFlags);
-    void insertSpaces(QString &data, unsigned int step = 1);
+    void insertSpaces(QString &data, int step = 1);
     bool formatHexData(const QByteArray &inData);
     void constructDisplayLine(const QByteArray &inData);
     void setupTextFormats();
@@ -94,7 +94,7 @@ private:
      * here so it can be reprinted in the next round
      * @brief m_hexLeftOver
      */
-    QByteArray m_hexLeftOver;
+    QByteArray *m_hexLeftOver;
 
     /**
      * Data is displayed as hexadecimal values.
@@ -141,7 +141,7 @@ class DataDisplayPrivate : public QPlainTextEdit
     Q_OBJECT
 
 public:
-    explicit DataDisplayPrivate(DataDisplay *parent = 0);
+    explicit DataDisplayPrivate(DataDisplay *parent = nullptr);
 
     void timeViewPaintEvent(QPaintEvent *event);
 
