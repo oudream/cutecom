@@ -373,7 +373,8 @@ void DataDisplay::setupTextFormats()
 
     QTextCursor cursor = m_dataDisplay->textCursor();
     QTextCharFormat format = cursor.charFormat();
-    QColor col = QColor(Qt::black);
+    QPalette palette = QApplication::palette();
+    QColor col = palette.color(QPalette::WindowText);
     format.setForeground(col);
     QFont font;
     font.setFamily(font.defaultFamily());
@@ -386,7 +387,7 @@ void DataDisplay::setupTextFormats()
     format.setForeground(col);
     m_dataDisplay->setTimeFormat(new QTextCharFormat(format));
 
-    col = QColor(Qt::black);
+    col = palette.color(QPalette::WindowText);
     format.setForeground(col);
     font = QFont("Monospace");
     font.setStyleHint(QFont::Courier);
