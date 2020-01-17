@@ -91,7 +91,7 @@ Autoscolling will stop, once a certain section of the data is scrolled to.
 PageUp and PageDown are working for moving through the output view.
 
 ![Pressing Ctrl will open a widget allowing you to add control characters into the input field](ctr_characters.png)    
-Pressing Ctrl will open a widget allowing you to add control characters into the input field.
+Pressing (and holding for about 1 sec) the \[Ctrl\]-key will open a widget allowing you to add control characters into the input field.
 
 ## Previous versions:
 
