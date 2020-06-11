@@ -23,6 +23,7 @@
 #include <QApplication>
 #include <QKeyEvent>
 #include <QPainter>
+#include <QPainterPath>
 #include <QPoint>
 #include <QPushButton>
 #include <QSignalMapper>
