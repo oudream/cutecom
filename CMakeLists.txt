@@ -8,6 +8,8 @@ set (CuteCom_PATCH_VERSION 0)
 set (CuteCom_VERSION
      ${CuteCom_MAJOR_VERSION}.${CuteCom_MINOR_VERSION}.${CuteCom_PATCH_VERSION})
 
+include(GNUInstallDirs)
+
 configure_file (
   "${PROJECT_SOURCE_DIR}/version.h.in"
   "${PROJECT_SOURCE_DIR}/version.h"
@@ -39,7 +41,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 #add_definitions("-std=c++11")
 
 set(exeType)
-set(binInstallDir bin )
+set(binInstallDir "${CMAKE_INSTALL_BINDIR}")
 
 if(APPLE)
    set(exeType MACOSX_BUNDLE)
