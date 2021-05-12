@@ -3,7 +3,6 @@
 - Check if README.md needs an update
 - Update Changelog
 - Update
-  - `distribution/Debian/cutecom.dsc`
   - `distribution/openSUSE/cutecom.changes`
   - `distribution/openSUSE/cutecom.spec`
 - Update version information in `CMakeLists.txt`

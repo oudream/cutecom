@@ -1,5 +1,0 @@
-# Compulsory line, this is a version 3 file
-version=3
-
-opts=filenamemangle=s/.+\/v?(\d\S*)\.tgz/cutecom-$1\.tgz/ \
-  https://gitlab.com/cutecom/cutecom/tags .*/v?(\d\S*)\.tgz
