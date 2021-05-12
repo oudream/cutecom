@@ -53,7 +53,7 @@ CuteCom is using [GitLabCI](./CI.md).
 
 #### Requirements for Building:
 
-*   CuteCom 0.30.0 +: Qt >= 5.3, CMake >= 2.8.11
+*   CuteCom 0.30.0 +: Qt >= 5.3, CMake >= 2.8.12
 *   on linux look for the qt5 development packages including QSerialport
 *   Since C++C11 features are used a gcc supporting these is needed too
 
