@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.11 FATAL_ERROR )
+cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR )
 
 project(CuteCom)
 
@@ -7,6 +7,8 @@ set (CuteCom_MINOR_VERSION 51)
 set (CuteCom_PATCH_VERSION 0)
 set (CuteCom_VERSION
      ${CuteCom_MAJOR_VERSION}.${CuteCom_MINOR_VERSION}.${CuteCom_PATCH_VERSION})
+
+include(GNUInstallDirs)
 
 configure_file (
   "${PROJECT_SOURCE_DIR}/version.h.in"
@@ -39,7 +41,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 #add_definitions("-std=c++11")
 
 set(exeType)
-set(binInstallDir bin )
+set(binInstallDir "${CMAKE_INSTALL_BINDIR}")
 
 if(APPLE)
    set(exeType MACOSX_BUNDLE)
@@ -56,6 +58,15 @@ if (APPLE)
 endif (APPLE)
 
 install(TARGETS cutecom DESTINATION ${binInstallDir} )
+
+if (NOT APPLE)
+   install(FILES cutecom.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
+   install(FILES com.gitlab.cutecom.cutecom.appdata.xml DESTINATION ${CMAKE_INSTALL_DATADIR}/metainfo)
+   install(FILES images/cutecom.svg DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps)
+   install(FILES distribution/cutecom.png DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/32x32/apps)
+endif()
+
+install(FILES cutecom.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
 
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-long-long -pedantic")
