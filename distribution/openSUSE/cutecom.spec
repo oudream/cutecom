@@ -52,7 +52,7 @@ gzip %{name}.1
 install -m 644 %{name}.1.gz $RPM_BUILD_ROOT/%{_mandir}/man1/
 
 install -d 755 $RPM_BUILD_ROOT%{_datadir}/applications
-install -m 644 distribution/openSUSE/cutecom.desktop $RPM_BUILD_ROOT%{_datadir}/applications/
+install -m 644 cutecom.desktop $RPM_BUILD_ROOT%{_datadir}/applications/
 install -d 755 $RPM_BUILD_ROOT%{_datadir}/pixmaps
 install -m 644 images/cutecom.svg $RPM_BUILD_ROOT%{_datadir}/pixmaps/
 
