@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-    <id>com.gitlab.cutecom.cutecom</id>
-    <name>Cutecom</name>
-    <metadata_license>CC0-1.0</metadata_license>
-    <project_license>GPL-3.0</project_license>
-    <summary>Graphical serial terminal</summary>
-    <description>
-        <p>CuteCom is a graphical serial terminal, like minicom.
-        </p>
-        <ul>
-            <li>easy to use GUI</li>
-            <li>no cryptic keyboard shortcuts</li>
-            <li>lineoriented interface instead of character-oriented</li>
-            <li>Ctrl+C, Ctrl+Q and Ctrl+S control sequences work (use CMD+ on MacOS)</li>
-            <li>input history</li>
-            <li>a cute GUI ;-)</li>
-            <li>session support via -s  specified at the command line</li>
-            <li>switching sessions via a session manager</li>
-			<li>control panel hides when not used </li>
-			<li>xmodem, ymodem, zmodem support (requires the sz tools)</li>
-			<li>easy to differentiate between typed text and echoed text</li>
-			<li>select between read/write, read-only and write-only open mode</li>
-			<li>hexadecimal input and output</li>
-			<li>configurable line end characters (LF, CR, LFCR)</li>
-			<li>configurable delay between characters</li>
-			<li>optionally show control characters like line feed or tabs in output</li>
-			<li>optionally prefix each line in output with a timestamp</li>
-			<li>open the device without changing its settings (was not ported but could be added if demand arrises )</li>
-			<li>plugins (macros, netproxy)</li>
-        </ul>
-    </description>
-    <screenshots>
-      <screenshot type="default">
-        <caption>Cutecom main window</caption>
-        <image width="1200" height="675">https://gitlab.com/cutecom/cutecom/raw/master/cutecom.png</image>
-      </screenshot>
-      <screenshot>
-        <caption>Cutecom plot</caption>
-        <image width="1200" height="675">https://gitlab.com/cutecom/cutecom/raw/master/ctr_characters.png</image>
-      </screenshot>
-    </screenshots>
-    <url type="homepage">https://gitlab.com/cutecom/cutecom</url>
+  <id>com.gitlab.cutecom.cutecom</id>
+  <name>Cutecom</name>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0</project_license>
+  <summary>Graphical serial terminal</summary>
+  <description>
+    <p>CuteCom is a graphical serial terminal, like minicom.
+    </p>
+    <ul>
+      <li>easy to use GUI</li>
+      <li>no cryptic keyboard shortcuts</li>
+      <li>line-oriented interface instead of character-oriented</li>
+      <li>Ctrl+C, Ctrl+Q and Ctrl+S control sequences work (use CMD+ on MacOS)</li>
+      <li>input history</li>
+      <li>a cute GUI ;-)</li>
+      <li>session support via -s specified at the command line</li>
+      <li>switching sessions via a session manager</li>
+      <li>control panel hides when not used</li>
+      <li>xmodem, ymodem, zmodem support (requires the sz tools)</li>
+      <li>easy to differentiate between typed text and echoed text</li>
+      <li>select between read/write, read-only and write-only open mode</li>
+      <li>hexadecimal input and output</li>
+      <li>configurable line end characters (LF, CR, LFCR)</li>
+      <li>configurable delay between characters</li>
+      <li>optionally show control characters like line feed or tabs in output</li>
+      <li>optionally prefix each line in output with a timestamp</li>
+      <li>plugins (macros, netproxy)</li>
+    </ul>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Cutecom main window</caption>
+      <image width="1200" height="675">https://gitlab.com/cutecom/cutecom/raw/master/cutecom.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Cutecom plot</caption>
+      <image width="1200" height="675">https://gitlab.com/cutecom/cutecom/raw/master/ctr_characters.png</image>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">https://gitlab.com/cutecom/cutecom</url>
+  <url type="bugtracker">https://gitlab.com/cutecom/cutecom/-/issues</url>
+  <launchable type="desktop-id">cutecom.desktop</launchable>
 </component>
-
