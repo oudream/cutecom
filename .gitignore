@@ -44,3 +44,8 @@ cmake_install.cmake
 cutecom
 cutecom.spec
 cutecom_autogen/*
+
+# Flatpak
+.flatpak-builder
+distribution/Flatpak/build
+distribution/Flatpak/cutecomRepo
