@@ -32,14 +32,15 @@
   <screenshots>
     <screenshot type="default">
       <caption>Cutecom main window</caption>
-      <image width="1200" height="675">https://gitlab.com/cutecom/cutecom/raw/master/cutecom.png</image>
+      <image width="1200" height="519">https://gitlab.com/cutecom/cutecom/raw/master/cutecom.png</image>
     </screenshot>
     <screenshot>
       <caption>Cutecom plot</caption>
-      <image width="1200" height="675">https://gitlab.com/cutecom/cutecom/raw/master/ctr_characters.png</image>
+      <image width="911" height="327">https://gitlab.com/cutecom/cutecom/raw/master/ctr_characters.png</image>
     </screenshot>
   </screenshots>
   <url type="homepage">https://gitlab.com/cutecom/cutecom</url>
   <url type="bugtracker">https://gitlab.com/cutecom/cutecom/-/issues</url>
   <launchable type="desktop-id">cutecom.desktop</launchable>
+  <content_rating type="oars-1.1" />
 </component>
