@@ -43,4 +43,8 @@
   <url type="bugtracker">https://gitlab.com/cutecom/cutecom/-/issues</url>
   <launchable type="desktop-id">cutecom.desktop</launchable>
   <content_rating type="oars-1.1" />
+  <releases>
+    <release version="0.51.0" date="2018-01-12" urgency="low">
+    </release>
+  </releases>
 </component>
